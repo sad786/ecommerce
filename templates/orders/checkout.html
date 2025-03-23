@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{%load static %}
+
+{% block content %}
+<div class="checkout-container">
+    <h2>Checkout</h2>
+    <form method="post" action="{% url 'orders:checkout' %}">
+        {% csrf_token %}
+
+        <button type="submit" class="btn">Place Order</button>
+    </form>
+    <div id="paypal-button-container"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
+<script src="{% static 'js/paypal.js' %}"></script>
+{% endblock %}
