@@ -23,7 +23,7 @@ DEBUG = config('DEBUG') == 'True'
 
 #ALLOWED_HOSTS = [ 'localhost','127.0.0.1','ecommerce-w5jf.onrender.com']
 
-ALLOWED_HOSTS = [os.getenv('RAILWAY_PUBLIC_DOMAIN', default='localhost')]
+ALLOWED_HOSTS = [os.getenv('RENDER_PUBLIC_DOMAIN', default='localhost')]
 
 # Application definition
 INSTALLED_APPS = [
