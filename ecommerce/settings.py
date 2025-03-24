@@ -21,9 +21,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-=hc!k+3+s&n$8&0p-#t#b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG') == 'True'
 
-#ALLOWED_HOSTS = [ 'localhost','127.0.0.1','ecommerce-w5jf.onrender.com']
+ALLOWED_HOSTS = [ 'localhost','127.0.0.1','ecommerce-jn1h.onrender.com']
 
-ALLOWED_HOSTS = [os.getenv('RENDER_PUBLIC_DOMAIN', default='localhost')]
+#ALLOWED_HOSTS = [os.getenv('RENDER_PUBLIC_DOMAIN', default='localhost')]
 
 # Application definition
 INSTALLED_APPS = [
