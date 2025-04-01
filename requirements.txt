@@ -10,3 +10,5 @@ python-decouple==3.8
 sqlparse==0.5.3
 tzdata==2025.1
 whitenoise==6.9.0
+boto3==1.26.0
+django-storages==1.13.2

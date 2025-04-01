@@ -6,6 +6,8 @@
 import os
 from pathlib import Path
 from decouple import config
+import boto3
+boto3.set_stream_logger('')
 #import environ
 
 #import dj_database_url
@@ -25,6 +27,20 @@ ALLOWED_HOSTS = [ 'localhost','127.0.0.1','ecommerce-jn1h.onrender.com']
 
 #ALLOWED_HOSTS = [os.getenv('RENDER_PUBLIC_DOMAIN', default='localhost')]
 
+
+
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY')
+
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_KEY')
+AWS_STORAGE_BUCKET_NAME =config('AWS_BUCKET_NAME')
+AWS_S3_REGION_NAME="eu-north-1"
+AWS_S3_CUSTOM_DOMAIN=f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+AWS_S3_OBJECT_PARAMETERS ={'CacheControl':'max-age=86400'}
+AWS_DEFAULT_ACL= None
+
+AWS_S3_SIGNATURE_VERSION = 's3v4'       # Force v4 signatures
+AWS_S3_ADDRESSING_STYLE = 'virtual'      # Required for newer regions
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,6 +59,7 @@ INSTALLED_APPS = [
     # Third-party apps
     'crispy_forms',
     'crispy_bootstrap4',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -137,11 +154,17 @@ STATICFILES_DIRS = [
 #    BASE_DIR / 'static',
     os.path.join(BASE_DIR,'static'),
 ]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# here media files will be sotred
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
+
+#MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
