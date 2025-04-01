@@ -24,4 +24,11 @@ def cart_remove(request, product_id):
 
 def cart_detail(request):
     cart = Cart(request)
-    return render(request, 'cart/cart_detail.html', {'cart_items': cart})
+    cart_total = 0
+
+    for key in cart.cart:
+        item = cart.cart[key]
+        price = item['quantity'] * float(item['price'])
+        cart_total += price
+
+    return render(request, 'cart/cart_detail.html', {'cart_items': cart, 'cart_total':cart_total})
